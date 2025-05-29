@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}Opis projektu{% endblock %}
 {% block content %}
-<ol>
-    <li>Cel aplikacji</li>
-    <li>Opis działania aplikacji</li>
-    <li>Zastosowane biblioteki</li>
-    <li>Zastosowane podejścia</li>
-</ol>
+<div class="list-group w-50">
+        <div class="list-group-item list-group-item-action">
+            <strong>Cel aplikacji:</strong> Tworzenie narzędzia do analizy opinii.
+        </div>
+        <div class="list-group-item list-group-item-action">
+            <strong>Opis działania aplikacji:</strong> Pobieranie i przetwarzanie opinii z serwisu Ceneo.
+        </div>
+        <div class="list-group-item list-group-item-action">
+            <strong>Zastosowane biblioteki:</strong> Flask, BeautifulSoup, Pandas.
+        </div>
+        <div class="list-group-item list-group-item-action">
+            <strong>Zastosowane podejścia:</strong> Web scraping, analiza danych.
+        </div>
+    </div>
 {% endblock %}
