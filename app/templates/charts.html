@@ -6,6 +6,16 @@
 </div>
 
 <div class="text-center">
-   <img src="{{ url_for('static', filename='images/' + product_id + '_pie.png') }}" alt="Rozkład Rekomendacji w opiniach o produkcie" class="img-fluid-thumbnail">
+   <img src="{{ url_for('static', filename='images/' + product_id + '_pie.png') }}"
+        alt="Rozkład Rekomendacji w opiniach o produkcie"
+        class="img-fluid"
+        style="max-width: 600px; width: 100%; height: auto;">
+</div>
+
+<div class="text-center mt-4">
+    <img src="{{ url_for('static', filename='images/' + product_id + '_stars_bar.png') }}"
+         alt="Liczba opinii z poszczególną liczbą gwiazdek"
+         class="img-fluid"
+         style="max-width: 600px; width: 100%; height: auto;">
 </div>
 {% endblock %}

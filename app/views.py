@@ -135,14 +135,25 @@ def charts(product_id):
         recommendations.plot.pie(
             label = "",
             autopct="%.1f%%",
-            figsize=(10, 10),
             title= f"Rozkład rekomendacji o produkcie {product_id}",
             labels = ["Nie polecam", "Polecam", "Nie mam zdania"],
-            legend=True,
             colors = ["Red", "Green", "LightGray"],
-            fontsize = 20,
         )
     plt.savefig(f"./app/static/images/{stats['product_id']}_pie.png")
     plt.close()
+
+    with open(f"./app/data/opinions/{product_id}.json", "r", encoding="utf-8") as jf:
+        opinions = pd.read_json(jf)
+        stars_count = opinions["stars"].value_counts().sort_index()
+        stars_count.plot.bar(
+            color="orange",
+            figsize=(8, 6),
+            title=f"Liczba opinii z poszczególną liczbą gwiazdek dla produktu {product_id}"
+        )
+        plt.xlabel("Liczba gwiazdek")
+        plt.ylabel("Liczba opinii")
+        plt.tight_layout()
+        plt.savefig(f"./app/static/images/{product_id}_stars_bar.png")
+        plt.close()
 
     return render_template("charts.html",product_id=product_id, product_name=stats['product_name'])
