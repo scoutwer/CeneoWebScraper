@@ -1,5 +1,38 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% block title %}Lista produktów{% endblock %}
 {% block content %}
-    <h1>Hello!</h1>
+<table class="table table-bordered table-hover align-middle">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa produktu</th>
+            <th>Liczba opinii</th>
+            <th>Liczba zalet</th>
+            <th>Liczba wad</th>
+            <th>Średnia ocen</th>
+            <th>Eksport</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for product in products_list %}
+        <tr>
+            <td>
+                <a class="btn btn-ceneo" href="{{ url_for('product', product_id=product.product_id, product_name=product.product_name) }}">
+                    {{ product.product_id }}
+                </a>
+            </td>
+            <td>{{ product.product_name }}</td>
+            <td><span class="badge bg-primary rounded-pill">{{ product.opinions_count }}</span></td>
+            <td><span class="badge bg-success rounded-pill">{{ product.pros_count }}</span></td>
+            <td><span class="badge bg-danger rounded-pill">{{ product.cons_count }}</span></td>
+            <td><span class="badge bg-ceneo rounded-pill">{{ product.avg_stars|default(0)|round(2) }}</span></td>
+            <td>
+                <a class="btn btn-outline-secondary btn-sm" href="#">CSV</a>
+                <a class="btn btn-outline-secondary btn-sm" href="#">XLSX</a>
+                <a class="btn btn-outline-secondary btn-sm" href="#">JSON</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
