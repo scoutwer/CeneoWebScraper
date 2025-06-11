@@ -27,9 +27,9 @@
             <td><span class="badge bg-danger rounded-pill">{{ product.cons_count }}</span></td>
             <td><span class="badge bg-ceneo rounded-pill">{{ product.avg_stars|default(0)|round(2) }}</span></td>
             <td>
-                <a class="btn btn-outline-secondary btn-sm" href="#">CSV</a>
-                <a class="btn btn-outline-secondary btn-sm" href="#">XLSX</a>
-                <a class="btn btn-outline-secondary btn-sm" href="#">JSON</a>
+                <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('download', product_id=product.product_id, filetype='csv') }}">CSV</a>
+    <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('download', product_id=product.product_id, filetype='xlsx') }}">XLSX</a>
+    <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('download', product_id=product.product_id, filetype='json') }}">JSON</a>
             </td>
         </tr>
     {% endfor %}

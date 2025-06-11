@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, send_file
 from app import app
 import requests
 from config import headers
@@ -8,6 +8,7 @@ import json
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import io
 
 import matplotlib
 matplotlib.use('Agg')  # Use a non-interactive backend for matplotlib
@@ -157,3 +158,36 @@ def charts(product_id):
         plt.close()
 
     return render_template("charts.html",product_id=product_id, product_name=stats['product_name'])
+
+@app.route('/download/<product_id>/<filetype>')
+def download(product_id, filetype):
+    path = f"./data/opinions/{product_id}.json"
+    if filetype == "json":
+        return send_file(path, as_attachment=True)
+    elif filetype == "csv":
+        path = f"./app/data/opinions/{product_id}.json"
+        df = pd.read_json(path)
+        buffer = io.StringIO()
+        df.to_csv(buffer, index=False)
+        buffer.seek(0)
+        return send_file(
+            io.BytesIO(buffer.getvalue().encode("utf-8")),
+            mimetype="text/csv",
+            as_attachment=True,
+            download_name=f"{product_id}.csv"
+        )
+    elif filetype == "xlsx":
+        path = f"./app/data/opinions/{product_id}.json"
+        df = pd.read_json(path)
+        buffer = io.BytesIO()
+        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            df.to_excel(writer, index=False)
+        buffer.seek(0)
+        return send_file(
+            buffer,
+            mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            as_attachment=True,
+            download_name=f"{product_id}.xlsx"
+        )
+
+

@@ -2,9 +2,9 @@
 {% block title %} {{product_id}} - {{product_name}}{% endblock %}
 {% block content %}
     <div class="btn-group" role="group" aria-label="Basic example">
-        <a type="button" class="btn btn-info" href="#">CSV</a>
-        <a type="button" class="btn btn-info" href="#">XLSX</a>
-        <a type="button" class="btn btn-info" href="#">JSON</a>
+        <a type="button" class="btn btn-info" href="{{ url_for('download', product_id=product_id, filetype='csv') }}">CSV</a>
+        <a type="button" class="btn btn-info" href="{{ url_for('download', product_id=product_id, filetype='xlsx') }}">XLSX</a>
+        <a type="button" class="btn btn-info" href="{{ url_for('download', product_id=product_id, filetype='json') }}">JSON</a>
         <a type="button" class="btn btn-ceneo" href="{{ url_for('charts', product_id=product_id)}}"><i class="bi bi-bar-chart-fill"></i><i class="bi bi-pie-chart-fill"></i></a>
 
     </div>  
